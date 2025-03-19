@@ -1,4 +1,4 @@
-resource "aws_db_subnet_group" "default" {
+resource "aws_db_subnet_group" "main" {
   name       = "${local.name_prefix}-subnet-group"
   subnet_ids = var.subnet_ids
 
@@ -25,4 +25,10 @@ resource "aws_security_group" "main" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
+}
+
+resource "aws_rds_cluster_parameter_group" "main" {
+  name        = "${local.name_prefix}-cluster-pg"
+  family      = var.engine_family
+  description = "${local.name_prefix}-cluster-pg"
 }
