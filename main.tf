@@ -31,6 +31,7 @@ resource "aws_rds_cluster_parameter_group" "main" {
   name        = "${local.name_prefix}-cluster-pg"
   family      = var.engine_family
   description = "${local.name_prefix}-cluster-pg"
+  tags        = merge(local.tags, { Name = "${local.name_prefix}-pg" })
 }
 
 resource "aws_rds_cluster" "main" {
@@ -45,4 +46,6 @@ resource "aws_rds_cluster" "main" {
   master_password                 = "must_be_eight_characters"
   backup_retention_period         = var.backup_retention_period
   preferred_backup_window         = var.preferred_backup_window
+  skip_final_snapshot             = var.skip_final_snapshot
+  tags                            = merge(local.tags, { Name = "${local.name_prefix}-cluster" })
 }
