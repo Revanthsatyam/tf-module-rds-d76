@@ -41,9 +41,9 @@ resource "aws_rds_cluster" "main" {
   db_subnet_group_name            = aws_db_subnet_group.main.name
   vpc_security_group_ids          = [aws_security_group.main.id]
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.main.name
-  database_name                   = "mydb"
-  master_username                 = "foo"
-  master_password                 = "must_be_eight_characters"
+  database_name                   = data.aws_ssm_parameter.database_name.name
+  master_username                 = data.aws_ssm_parameter.master_username.name
+  master_password                 = data.aws_ssm_parameter.master_password.name
   backup_retention_period         = var.backup_retention_period
   preferred_backup_window         = var.preferred_backup_window
   skip_final_snapshot             = var.skip_final_snapshot
