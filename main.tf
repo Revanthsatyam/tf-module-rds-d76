@@ -47,6 +47,7 @@ resource "aws_rds_cluster" "main" {
   backup_retention_period         = var.backup_retention_period
   preferred_backup_window         = var.preferred_backup_window
   skip_final_snapshot             = var.skip_final_snapshot
+  kms_key_id                      = var.kms_key
   tags                            = merge(local.tags, { Name = "${local.name_prefix}-cluster" })
 }
 
